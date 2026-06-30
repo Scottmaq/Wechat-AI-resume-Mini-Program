@@ -1,8 +1,8 @@
-# AI Resume Optimizer Mini Program
+# AI Resume Wechat Mini Program
 
 一个基于微信小程序、云开发、DeepSeek API 和 PDFKit 的 AI 简历优化项目。项目覆盖从简历输入、PDF 解析、AI 结构化生成、一页制 PDF 排版，到免费额度、模拟支付解锁和云端权限校验的完整链路。
 
-> This is a complete AI mini program engineering demo, not just a static UI prototype.
+
 
 ## Preview
 
@@ -174,18 +174,3 @@ PDF 生成由 `pdfkit` 完成，模板目标是输出一页制正式简历：
 - 用户应自行核对所有事实、时间、公司、证书和数据
 - 不承诺面试、录用或求职结果
 - 可删除云端生成结果和 PDF 文件
-
-## Open Source Notes
-
-开源前请确认：
-
-- 不要提交真实 API Key
-- 不要提交真实用户简历或 PDF
-- 将 `app.js` 中的云环境 ID 改为占位值
-- 将 `project.config.json` 中的真实 AppID 改为 `touristappid` 或自行说明
-- 如果使用自己的字体、截图或测试数据，请确认授权
-
-## Disclaimer
-
-This project is for learning, portfolio demonstration, and engineering reference only. AI-generated resume content should be reviewed by users before use. The project does not guarantee interviews, offers, or employment outcomes.
-
