@@ -1,0 +1,18 @@
+<view class="page">
+  <view wx:if="{{history.length}}" class="history-list">
+    <view wx:for="{{history}}" wx:key="id" class="history-card" bindtap="openRecord" data-id="{{item.id}}">
+      <view class="history-main">
+        <view class="history-role">{{item.targetRole}}</view>
+        <view class="history-time">{{item.createdAtText}}</view>
+      </view>
+      <view class="history-score">{{item.score}}分</view>
+    </view>
+    <button class="ghost-button clear-button" bindtap="clearHistory">清空记录</button>
+  </view>
+
+  <view wx:else class="empty">
+    <view class="empty-title">还没有优化记录</view>
+    <view class="empty-desc">完成一次简历优化后，会自动保存在本机。</view>
+    <button class="primary-button start-button" bindtap="goHome">开始优化</button>
+  </view>
+</view>

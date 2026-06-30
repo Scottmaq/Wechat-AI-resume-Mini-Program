@@ -1,0 +1,11 @@
+{
+  "name": "optimize-resume",
+  "version": "1.1.0",
+  "description": "AI resume optimizer cloud function",
+  "main": "index.js",
+  "dependencies": {
+    "pdf-parse": "^1.1.1",
+    "pdfkit": "^0.15.0",
+    "wx-server-sdk": "^3.0.1"
+  }
+}

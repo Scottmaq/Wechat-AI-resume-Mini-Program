@@ -1,0 +1,202 @@
+<view class="page">
+  <view class="hero">
+    <view class="hero-title">AI简历优化</view>
+    <view class="hero-subtitle">支持粘贴内容、上传PDF，也可以从零生成一份可投递的简历。</view>
+    <view class="hero-metrics">
+      <view class="metric">
+        <text class="metric-value">PDF</text>
+        <text class="metric-label">提取优化</text>
+      </view>
+      <view class="metric">
+        <text class="metric-value">AI</text>
+        <text class="metric-label">生成简历</text>
+      </view>
+      <view class="metric">
+        <text class="metric-value">导出</text>
+        <text class="metric-label">可用版本</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="mode-tabs">
+    <view
+      wx:for="{{modes}}"
+      wx:key="value"
+      class="mode-tab {{mode == item.value ? 'mode-active' : ''}}"
+      bindtap="selectMode"
+      data-value="{{item.value}}"
+    >{{item.label}}</view>
+  </view>
+
+  <view class="quota-panel">
+    <view class="quota-item">
+      <text class="quota-number">{{quota.freeRemaining}}</text>
+      <text class="quota-label">免费评估</text>
+    </view>
+    <view class="quota-item">
+      <text class="quota-number">{{quota.proRemaining}}</text>
+      <text class="quota-label">专业分析</text>
+    </view>
+    <view class="quota-item">
+      <text class="quota-number">{{quota.totalRemaining}}</text>
+      <text class="quota-label">可用次数</text>
+    </view>
+  </view>
+
+  <view class="section form-section">
+    <view class="field">
+      <text class="field-label">目标岗位</text>
+      <input class="input" placeholder="例如：前端开发工程师" value="{{targetRole}}" bindinput="onInput" data-field="targetRole" />
+    </view>
+
+    <view class="field">
+      <text class="field-label">工作年限</text>
+      <input class="input" placeholder="例如：3年 / 应届生" value="{{years}}" bindinput="onInput" data-field="years" />
+    </view>
+
+    <block wx:if="{{mode == 'paste'}}">
+      <view class="field">
+        <text class="field-label">原始简历内容</text>
+        <textarea class="textarea resume-textarea" maxlength="6000" placeholder="粘贴教育经历、工作经历、项目经历、技能等内容。" value="{{resumeText}}" bindinput="onInput" data-field="resumeText"></textarea>
+        <view class="field-hint">{{resumeText.length}} / 6000</view>
+      </view>
+    </block>
+
+    <block wx:if="{{mode == 'pdf'}}">
+      <view class="field">
+        <text class="field-label">上传PDF简历</text>
+        <view wx:if="{{pdfFile}}" class="pdf-file">
+          <view class="pdf-name">{{pdfFile.name}}</view>
+          <view class="pdf-size">{{pdfFile.size}} bytes</view>
+          <button class="ghost-button small-button" bindtap="clearPdf">重新选择</button>
+        </view>
+        <button wx:else class="secondary-button" bindtap="choosePdf">选择PDF文件</button>
+      </view>
+    </block>
+
+    <block wx:if="{{mode == 'create'}}">
+      <view class="profile-grid">
+        <view class="field">
+          <text class="field-label">姓名</text>
+          <input class="input" placeholder="例如：张三" value="{{profile.name}}" bindinput="onProfileInput" data-field="name" />
+        </view>
+        <view class="field">
+          <text class="field-label">城市</text>
+          <input class="input" placeholder="例如：上海" value="{{profile.city}}" bindinput="onProfileInput" data-field="city" />
+        </view>
+      </view>
+
+      <view class="field">
+        <text class="field-label">联系方式</text>
+        <input class="input" placeholder="手机号 / 邮箱，可选" value="{{profile.phone}}" bindinput="onProfileInput" data-field="phone" />
+      </view>
+
+      <view class="field">
+        <text class="field-label">教育经历</text>
+        <textarea class="textarea short-textarea" maxlength="1000" placeholder="学校、专业、学历、时间、成绩或荣誉。" value="{{profile.education}}" bindinput="onProfileInput" data-field="education"></textarea>
+      </view>
+
+      <view class="field">
+        <text class="field-label">工作/实习经历</text>
+        <textarea class="textarea short-textarea" maxlength="1800" placeholder="公司、岗位、负责内容、做出的结果。" value="{{profile.work}}" bindinput="onProfileInput" data-field="work"></textarea>
+      </view>
+
+      <view class="field">
+        <text class="field-label">项目经历</text>
+        <textarea class="textarea short-textarea" maxlength="1800" placeholder="项目背景、你的职责、使用方法、最终成果。" value="{{profile.projects}}" bindinput="onProfileInput" data-field="projects"></textarea>
+      </view>
+
+      <view class="field">
+        <text class="field-label">技能/证书</text>
+        <textarea class="textarea short-textarea" maxlength="1000" placeholder="技能、工具、证书、语言能力等。" value="{{profile.skills}}" bindinput="onProfileInput" data-field="skills"></textarea>
+      </view>
+
+      <view class="field">
+        <text class="field-label">补充信息</text>
+        <textarea class="textarea short-textarea" maxlength="1000" placeholder="求职偏好、优势、想突出的经历。" value="{{profile.selfIntro}}" bindinput="onProfileInput" data-field="selfIntro"></textarea>
+      </view>
+    </block>
+
+    <view class="field">
+      <text class="field-label">目标JD / 招聘要求</text>
+      <textarea class="textarea jd-textarea" maxlength="2500" placeholder="可选。粘贴招聘要求后，AI会更偏向岗位匹配。" value="{{jobDescription}}" bindinput="onInput" data-field="jobDescription"></textarea>
+      <view class="field-hint">{{jobDescription.length}} / 2500</view>
+    </view>
+
+    <view class="tone-row">
+      <view
+        wx:for="{{tones}}"
+        wx:key="value"
+        class="tone {{tone == item.value ? 'tone-active' : ''}}"
+        bindtap="selectTone"
+        data-value="{{item.value}}"
+      >{{item.label}}</view>
+    </view>
+
+    <view class="ai-privacy-note">
+      提交即表示你理解：简历内容将用于AI分析与生成，结果仅供求职材料优化参考，请自行核对真实性后使用。
+      <navigator class="privacy-link" url="/pages/privacy/privacy">查看隐私与AI说明</navigator>
+    </view>
+
+    <button class="primary-button submit" loading="{{loading}}" disabled="{{loading}}" bindtap="submitResume">
+      {{submitText}}
+    </button>
+  </view>
+
+  <view class="section trust-section">
+    <view class="section-kicker">WHY US</view>
+    <view class="section-title">为什么选择我们</view>
+    <view class="trust-grid">
+      <view wx:for="{{trustItems}}" wx:key="title" class="trust-card">
+        <view class="trust-icon">{{item.icon}}</view>
+        <view class="trust-copy">
+          <view class="trust-title">{{item.title}}</view>
+          <view class="trust-desc">{{item.desc}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section feedback-section">
+    <view class="section-kicker">USER VOICE</view>
+    <view class="feedback-head">
+      <view class="section-title">用户反馈</view>
+      <view class="feedback-hint">左右滑动查看</view>
+    </view>
+    <swiper
+      class="feedback-swiper"
+      indicator-dots="{{true}}"
+      indicator-color="#d0d5dd"
+      indicator-active-color="#155eef"
+      circular="{{true}}"
+      autoplay="{{true}}"
+      interval="4200"
+      duration="420"
+    >
+      <swiper-item wx:for="{{testimonials}}" wx:key="role">
+        <view class="feedback-card">
+          <view class="quote-mark">“</view>
+          <view class="feedback-quote">{{item.quote}}</view>
+          <view class="feedback-meta">
+            <view class="feedback-role">{{item.role}}</view>
+            <view class="feedback-result">{{item.result}}</view>
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
+  </view>
+
+  <view wx:if="{{loading}}" class="loading-mask">
+    <view class="loading-panel">
+      <view class="thinking-orbit">
+        <view class="thinking-dot"></view>
+      </view>
+      <view class="loading-title">AI Thinking</view>
+      <view class="loading-step">{{loadingStepText}}</view>
+      <view class="progress-track">
+        <view class="progress-fill" style="width: {{progress}}%;"></view>
+      </view>
+      <view class="progress-meta">{{progress}}%</view>
+    </view>
+  </view>
+</view>

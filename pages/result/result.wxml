@@ -1,0 +1,109 @@
+<view class="page">
+  <view wx:if="{{loading && !result}}" class="empty">
+    <view class="empty-title">结果加载中</view>
+  </view>
+
+  <view wx:elif="{{result}}" class="result-page">
+    <view class="score-section">
+      <view class="score-copy">
+        <view class="score-label">匹配评分</view>
+        <view class="score-role">{{result.targetRole}}</view>
+      </view>
+      <view class="score-circle">
+        <text class="score-number">{{result.score}}</text>
+        <text class="score-unit">分</text>
+      </view>
+    </view>
+
+    <view wx:if="{{record.demoMode}}" class="demo-banner">
+      当前为演示结果。请检查云函数、API Key、PDF上传或云存储配置。
+    </view>
+
+    <view class="quota-strip">
+      <text>剩余专业分析次数</text>
+      <text class="quota-strip-number">{{result.creditsRemaining || 0}}</text>
+    </view>
+
+    <view class="section">
+      <view class="section-header">
+        <view class="section-title">优化摘要</view>
+      </view>
+      <view class="summary">{{result.summary}}</view>
+    </view>
+
+    <view class="section pdf-section">
+      <view class="pdf-main">
+        <view class="section-title">PDF简历</view>
+        <view wx:if="{{result.isUnlocked && result.pdfFileID}}" class="pdf-desc">已解锁，可打开并保存PDF版本。</view>
+        <view wx:elif="{{!result.isUnlocked}}" class="pdf-desc">支付后可下载完整PDF简历。</view>
+        <view wx:else class="pdf-desc">{{result.pdfNotice || "当前结果没有生成PDF文件。"}}</view>
+      </view>
+      <button wx:if="{{result.isUnlocked && result.pdfFileID}}" class="secondary-button pdf-button" disabled="{{downloading}}" bindtap="downloadPdf">
+        {{downloading ? "打开中" : "打开"}}
+      </button>
+    </view>
+
+    <view wx:if="{{!result.isUnlocked}}" class="section unlock-section">
+      <view class="unlock-title">完整简历已生成</view>
+      <view class="unlock-desc">
+        解锁后可查看完整优化简历、复制正文、下载PDF，并获得{{result.proCreditsIncluded || 3}}次岗位匹配度专业分析额度。
+      </view>
+      <view class="unlock-preview">{{result.optimizedResumePreview}}</view>
+      <button class="primary-button unlock-button" disabled="{{paying}}" bindtap="unlockResult">
+        {{paying ? "解锁中..." : "3.99 元解锁完整简历"}}
+      </button>
+    </view>
+
+    <view wx:if="{{result.isUnlocked}}" class="section">
+      <view class="section-header resume-header">
+        <view class="section-title">可直接投递版本</view>
+        <button class="copy-button" bindtap="copyText" data-text="{{result.optimizedResume}}">复制</button>
+      </view>
+      <view class="resume-output">{{result.optimizedResume}}</view>
+    </view>
+
+    <view class="section">
+      <view class="section-header">
+        <view class="section-title">亮点强化</view>
+      </view>
+      <view wx:for="{{result.highlights}}" wx:key="*this" class="list-row">
+        <text class="dot"></text>
+        <text>{{item}}</text>
+      </view>
+    </view>
+
+    <view class="section">
+      <view class="section-header">
+        <view class="section-title">需要补充</view>
+      </view>
+      <view wx:for="{{result.gaps}}" wx:key="*this" class="list-row warning">
+        <text class="dot"></text>
+        <text>{{item}}</text>
+      </view>
+    </view>
+
+    <view wx:if="{{result.interviewTips && result.interviewTips.length}}" class="section">
+      <view class="section-header">
+        <view class="section-title">面试准备</view>
+      </view>
+      <view wx:for="{{result.interviewTips}}" wx:key="*this" class="list-row">
+        <text class="dot"></text>
+        <text>{{item}}</text>
+      </view>
+    </view>
+
+    <view class="compliance-note">
+      AI生成内容仅供简历优化参考，请根据真实经历自行核对后使用；本工具不承诺面试、录用或求职结果。
+    </view>
+
+    <view class="action-row">
+      <button class="secondary-button" bindtap="goHome">再生成一份</button>
+      <button class="ghost-button" disabled="{{deleting}}" bindtap="deleteResult">{{deleting ? "删除中" : "删除数据"}}</button>
+    </view>
+  </view>
+
+  <view wx:else class="empty">
+    <view class="empty-title">暂无结果</view>
+    <button class="primary-button" bindtap="goHome">返回首页</button>
+  </view>
+</view>

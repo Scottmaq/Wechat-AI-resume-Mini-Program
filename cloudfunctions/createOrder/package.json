@@ -1,0 +1,9 @@
+{
+  "name": "create-order",
+  "version": "1.0.0",
+  "description": "Create resume unlock payment order",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "^3.0.1"
+  }
+}

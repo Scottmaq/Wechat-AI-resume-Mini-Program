@@ -1,0 +1,65 @@
+.history-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 132rpx;
+  padding: 24rpx;
+  margin-bottom: 18rpx;
+  border: 1rpx solid #e4e7ec;
+  border-radius: 16rpx;
+  background: #ffffff;
+}
+
+.history-main {
+  min-width: 0;
+}
+
+.history-role {
+  max-width: 510rpx;
+  overflow: hidden;
+  color: #101828;
+  font-size: 30rpx;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.history-time {
+  margin-top: 10rpx;
+  color: #667085;
+  font-size: 24rpx;
+}
+
+.history-score {
+  flex: 0 0 auto;
+  min-width: 92rpx;
+  color: #155eef;
+  font-size: 30rpx;
+  font-weight: 800;
+  text-align: right;
+}
+
+.clear-button {
+  margin-top: 22rpx;
+}
+
+.empty {
+  padding-top: 190rpx;
+  text-align: center;
+}
+
+.empty-title {
+  color: #101828;
+  font-size: 34rpx;
+  font-weight: 800;
+}
+
+.empty-desc {
+  margin: 16rpx auto 36rpx;
+  color: #667085;
+  font-size: 26rpx;
+}
+
+.start-button {
+  width: 420rpx;
+}

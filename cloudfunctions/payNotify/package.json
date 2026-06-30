@@ -1,0 +1,9 @@
+{
+  "name": "pay-notify",
+  "version": "1.0.0",
+  "description": "Payment notification handler",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "^3.0.1"
+  }
+}

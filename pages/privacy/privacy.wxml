@@ -1,0 +1,18 @@
+<view class="page">
+  <view class="section">
+    <view class="page-title">隐私与AI说明</view>
+    <view class="paragraph">
+      本工具用于简历分析、优化和PDF生成。你提交的简历文本、PDF、姓名、联系方式、教育经历、工作经历、项目经历、技能信息和目标岗位/JD，将用于生成评分、优化建议、完整简历和PDF。
+    </view>
+    <view class="paragraph">
+      为完成服务，我们会在云端保存生成结果、订单状态、openid、支付状态和PDF文件。你可以在结果页删除本次简历数据，删除后将移除云端结果和对应PDF文件。
+    </view>
+    <view class="paragraph">
+      AI生成内容仅供求职材料优化参考，不代表真实经历证明，也不承诺面试、录用或求职结果。请在投递前自行核对所有事实、数据、公司、证书和时间信息。
+    </view>
+    <view class="paragraph">
+      付费解锁仅用于查看本次完整优化简历、复制正文、下载PDF，并获得额外岗位匹配度分析额度。支付、退款和客服处理以微信支付和小程序页面说明为准。
+    </view>
+    <button class="primary-button back-button" bindtap="goBack">我知道了</button>
+  </view>
+</view>
